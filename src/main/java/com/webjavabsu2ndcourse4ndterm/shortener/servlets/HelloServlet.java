@@ -1,4 +1,4 @@
-package com.webjavabsu2ndcourse4ndterm.webbot;
+package com.webjavabsu2ndcourse4ndterm.shortener.servlets;
 
 import java.io.*;
 

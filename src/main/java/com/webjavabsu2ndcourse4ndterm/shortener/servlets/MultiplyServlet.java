@@ -1,6 +1,5 @@
-package com.webjavabsu2ndcourse4ndterm.webbot;
+package com.webjavabsu2ndcourse4ndterm.shortener.servlets;
 
-import jakarta.servlet.ServletException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
