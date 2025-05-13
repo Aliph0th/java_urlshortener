@@ -1,0 +1,102 @@
+/* === СТИЛИ ДЛЯ СТРАНИЦЫ КОНТАКТОВ === */
+.contact-page {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    text-align: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.contact-wrapper {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.contact-form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.contact-form-group input {
+    width: 100%;
+    padding: 12px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.btn-contact-add {
+    padding: 12px;
+    font-size: 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-contact-add:hover {
+    background-color: #0056b3;
+}
+
+.contact-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+}
+
+.contact-table th,
+.contact-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.contact-table th {
+    background-color: #f1f1f1;
+    font-weight: bold;
+}
+
+.contact-table tr:hover {
+    background-color: #f9f9f9;
+}
+
+.btn-contact-delete {
+    background-color: #dc3545;
+    color: white;
+    padding: 6px 12px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-contact-delete:hover {
+    background-color: #c82333;
+}
+
+.pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.pagination a {
+    margin: 0 5px;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    text-decoration: none;
+    color: black;
+    border-radius: 5px;
+}
+
+.pagination a.active {
+    font-weight: bold;
+    background-color: #eee;
+}

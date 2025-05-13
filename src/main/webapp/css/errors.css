@@ -1,0 +1,38 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+    color: #333;
+    text-align: center;
+}
+.container {
+    max-width: 400px;
+}
+h1 {
+    font-size: 6rem;
+    margin-bottom: 10px;
+}
+p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+a {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: white;
+    background-color: #007bff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+a:hover {
+    background-color: #0056b3;
+}

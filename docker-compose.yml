@@ -1,0 +1,22 @@
+version: '3.8'
+name: shortener
+services:
+  mysql:
+    image: mysql:9.3.0
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    container_name: mysql_url
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - net
+networks:
+  net:
+volumes:
+  mysql_data:
