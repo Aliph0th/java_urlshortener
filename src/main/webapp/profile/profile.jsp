@@ -8,6 +8,28 @@
 <head>
     <title><fmt:message key="profile.title" /></title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
+    <style>
+        .btn-signout {
+            background-color: #dc3545;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        .btn-signout:hover {
+            background-color: #c82333;
+        }
+        .action-buttons {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -20,7 +42,18 @@
         <p><strong><fmt:message key="username.placeholder" />:</strong> ${user.username}</p>
         <p><strong><fmt:message key="email.placeholder" />:</strong> ${user.email}</p>
     </div>
-    <a href="${pageContext.request.contextPath}/profile/edit" class="btn-edit"><fmt:message key="edit.profile.title" /></a>
+    
+    <div class="action-buttons">
+        <a href="${pageContext.request.contextPath}/profile/edit" class="btn-edit">
+            <fmt:message key="edit.profile.title" />
+        </a>
+        
+        <form action="${pageContext.request.contextPath}/signout" method="post" style="display: inline;">
+            <button type="submit" class="btn-signout">
+                <fmt:message key="signout.button" />
+            </button>
+        </form>
+    </div>
 
     <form action="${pageContext.request.contextPath}/change-language" method="post" style="margin-top: 20px;">
         <input type="hidden" name="lang" value="${lang == 'ru' ? 'en' : 'ru'}" />
