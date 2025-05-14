@@ -50,4 +50,8 @@ public class UrlShortenerService {
         }
         return shortCode.toString();
     }
+
+    public boolean deleteUrl(String shortCode, int userId) {
+        return shortUrlDao.deleteByShortCode(shortCode, userId);
+    }
 } 

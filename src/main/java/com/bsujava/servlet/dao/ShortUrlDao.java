@@ -9,4 +9,5 @@ public interface ShortUrlDao {
     Optional<ShortUrl> findByShortCode(String shortCode);
     List<ShortUrl> findByUserId(int userId);
     void incrementClickCount(String shortCode);
+    boolean deleteByShortCode(String shortCode, int userId);
 } 

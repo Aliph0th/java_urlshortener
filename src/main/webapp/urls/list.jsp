@@ -11,6 +11,35 @@
     <title>Your Shortened URLs</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
     <style>
+        .nav-bar {
+            background-color: #343a40;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .nav-links a:hover {
+            background-color: #495057;
+        }
+        .nav-links a.active {
+            background-color: #007bff;
+        }
         .urls-container {
             max-width: 800px;
             margin: 40px auto;
@@ -26,6 +55,7 @@
         .url-item {
             padding: 15px;
             border-bottom: 1px solid #eee;
+            position: relative;
         }
         .url-item:last-child {
             border-bottom: none;
@@ -65,9 +95,58 @@
             padding: 40px;
             color: #6c757d;
         }
+        .delete-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+        .delete-btn:hover {
+            background-color: #c82333;
+        }
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #28a745;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 4px;
+            display: none;
+            z-index: 1000;
+            animation: slideIn 0.3s ease-out;
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 <body>
+    <nav class="nav-bar">
+        <div class="nav-container">
+            <div class="nav-links">
+                <a href="${pageContext.request.contextPath}/" class="nav-link">Home</a>
+                <a href="${pageContext.request.contextPath}/urls" class="nav-link active">My URLs</a>
+                <a href="${pageContext.request.contextPath}/urls/create.jsp" class="nav-link">Shorten URL</a>
+                <a href="${pageContext.request.contextPath}/profile" class="nav-link">Profile</a>
+            </div>
+        </div>
+    </nav>
+
     <div class="container">
         <div class="urls-container">
             <h2>Your Shortened URLs</h2>
@@ -85,7 +164,7 @@
                 <c:otherwise>
                     <ul class="url-list">
                         <c:forEach items="${urls}" var="url">
-                            <li class="url-item">
+                            <li class="url-item" data-short-code="${url.shortCode}">
                                 <div class="short-url">
                                     <a href="${pageContext.request.contextPath}/s/${url.shortCode}" target="_blank">
                                         ${pageContext.request.contextPath}/s/${url.shortCode}
@@ -100,6 +179,7 @@
                                 <div class="created-at">
                                     Created: ${fn:formatDateTime(url.createdAt)}
                                 </div>
+                                <button class="delete-btn" onclick="deleteUrl('${url.shortCode}')">Delete</button>
                             </li>
                         </c:forEach>
                     </ul>
@@ -107,5 +187,50 @@
             </c:choose>
         </div>
     </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script>
+        function deleteUrl(shortCode) {
+            if (confirm('Are you sure you want to delete this URL? This action cannot be undone.')) {
+                fetch('${pageContext.request.contextPath}/urls/delete/' + shortCode, {
+                    method: 'POST',
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Remove the URL item from the list
+                        const urlItem = document.querySelector(`[data-short-code="\${shortCode}"]`);
+                        if (urlItem) {
+                            urlItem.remove();
+                        }
+                        showToast('URL deleted successfully');
+                        
+                        // If no more URLs, show the empty state
+                        const urlList = document.querySelector('.url-list');
+                        if (urlList && urlList.children.length === 0) {
+                            location.reload();
+                        }
+                    } else {
+                        throw new Error('Failed to delete URL');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showToast('Error deleting URL', true);
+                });
+            }
+        }
+
+        function showToast(message, isError = false) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.style.backgroundColor = isError ? '#dc3545' : '#28a745';
+            toast.style.display = 'block';
+            
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3000);
+        }
+    </script>
 </body>
 </html> 

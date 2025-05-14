@@ -10,38 +10,124 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><fmt:message key="register.title" /></title>
   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
+  <style>
+    .auth-container {
+      max-width: 400px;
+      margin: 60px auto;
+      padding: 30px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .auth-title {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+    .auth-subtitle {
+      text-align: center;
+      color: #7f8c8d;
+      margin-bottom: 30px;
+      font-size: 0.95em;
+    }
+    .auth-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .form-group input {
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1em;
+      transition: border-color 0.3s;
+    }
+    .form-group input:focus {
+      border-color: #007bff;
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+    }
+    .auth-button {
+      background-color: #007bff;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 4px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .auth-button:hover {
+      background-color: #0056b3;
+    }
+    .auth-links {
+      text-align: center;
+      margin-top: 20px;
+      color: #7f8c8d;
+    }
+    .auth-links a {
+      color: #007bff;
+      text-decoration: none;
+    }
+    .auth-links a:hover {
+      text-decoration: underline;
+    }
+    .error-message {
+      background-color: #fee;
+      color: #dc3545;
+      padding: 10px;
+      border-radius: 4px;
+      margin-bottom: 15px;
+      font-size: 0.9em;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-<div class="container">
-  <h1><fmt:message key="register.title" /></h1>
-  <p><fmt:message key="register.subtitle" /></p>
+<div class="auth-container">
+  <h1 class="auth-title"><fmt:message key="register.title" /></h1>
+  <p class="auth-subtitle"><fmt:message key="register.subtitle" /></p>
+  
   <c:if test="${not empty error}">
-    <div id="error" style="color:red;">${error}</div>
+    <div class="error-message">${error}</div>
   </c:if>
-  <form id="registerForm" action="/register" method="POST">
-    <input type="text" name="username" placeholder="<fmt:message key="username.placeholder" />" required>
-    <input type="email" name="email" placeholder="<fmt:message key="email.placeholder" />" required>
-    <input type="password" name="password" placeholder="<fmt:message key="password.placeholder" />" required>
-    <input type="password" name="repeatPassword" placeholder="<fmt:message key="repeat.password" />" required>
-    <button type="submit"><fmt:message key="register.button" /></button>
+  
+  <form id="registerForm" action="/register" method="POST" class="auth-form">
+    <div class="form-group">
+      <input type="text" name="username" placeholder="<fmt:message key="username.placeholder" />" required>
+    </div>
+    <div class="form-group">
+      <input type="email" name="email" placeholder="<fmt:message key="email.placeholder" />" required>
+    </div>
+    <div class="form-group">
+      <input type="password" name="password" placeholder="<fmt:message key="password.placeholder" />" required>
+    </div>
+    <div class="form-group">
+      <input type="password" name="repeatPassword" placeholder="<fmt:message key="repeat.password" />" required>
+    </div>
+    <button type="submit" class="auth-button"><fmt:message key="register.button" /></button>
   </form>
-  <p class="already-account"><fmt:message key="already.account" /> <a href="./login.jsp"><fmt:message key="login.link" /></a></p>
+  
+  <div class="auth-links">
+    <fmt:message key="already.account" /> <a href="./login.jsp"><fmt:message key="login.link" /></a>
+  </div>
 </div>
+
 <script>
   document.getElementById("registerForm").addEventListener("submit", function(e){
-    let errorDiv = document.getElementById("error");
-    if (!errorDiv) {
-      errorDiv = document.createElement("div");
-      errorDiv.id = "error";
-      errorDiv.style.color = "red";
-      this.prepend(errorDiv);
-    }
-    errorDiv.textContent = "";
     const password = this.password.value;
     const repeatPassword = this.repeatPassword.value;
     if(password !== repeatPassword){
-      errorDiv.textContent = "<fmt:message key="password.mismatch" />";
       e.preventDefault();
+      const errorDiv = document.createElement("div");
+      errorDiv.className = "error-message";
+      errorDiv.textContent = "<fmt:message key="password.mismatch" />";
+      this.prepend(errorDiv);
     }
   });
 </script>

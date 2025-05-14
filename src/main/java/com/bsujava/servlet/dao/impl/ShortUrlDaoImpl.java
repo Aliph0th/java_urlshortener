@@ -121,4 +121,22 @@ public class ShortUrlDaoImpl implements ShortUrlDao {
         shortUrl.setClickCount(rs.getInt("click_count"));
         return shortUrl;
     }
+
+    @Override
+    public boolean deleteByShortCode(String shortCode, int userId) {
+        String sql = "DELETE FROM short_urls WHERE short_code = ? AND user_id = ?";
+        
+        try (Connection conn = connectionPool.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setString(1, shortCode);
+            stmt.setInt(2, userId);
+            
+            int affectedRows = stmt.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            LOGGER.error("Error deleting short URL", e);
+            throw new RuntimeException("Error deleting short URL", e);
+        }
+    }
 } 

@@ -10,6 +10,35 @@
     <title>Create Short URL</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
     <style>
+        .nav-bar {
+            background-color: #343a40;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        .nav-links a:hover {
+            background-color: #495057;
+        }
+        .nav-links a.active {
+            background-color: #007bff;
+        }
         .url-form {
             max-width: 600px;
             margin: 40px auto;
@@ -50,6 +79,17 @@
     </style>
 </head>
 <body>
+    <nav class="nav-bar">
+        <div class="nav-container">
+            <div class="nav-links">
+                <a href="${pageContext.request.contextPath}/" class="nav-link">Home</a>
+                <a href="${pageContext.request.contextPath}/urls" class="nav-link">My URLs</a>
+                <a href="${pageContext.request.contextPath}/urls/create.jsp" class="nav-link active">Shorten URL</a>
+                <a href="${pageContext.request.contextPath}/profile" class="nav-link">Profile</a>
+            </div>
+        </div>
+    </nav>
+
     <div class="container">
         <div class="url-form">
             <h2>Create Short URL</h2>
