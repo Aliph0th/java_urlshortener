@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="mytags" uri="http://mytags" %>
 <fmt:setLocale value="${lang}" />
 <fmt:setBundle basename="messages" />
 <!DOCTYPE html>
@@ -35,10 +36,11 @@
 <div class="container">
     <h2><fmt:message key="profile.title" /></h2>
     <div class="profile-info">
-        <img src="${not empty user.avatarUrl ? user.avatarUrl : '/images/default-avatar.png'}"
-             alt="Avatar"
-             class="avatar"
-        >
+        <mytags:avatar 
+            src="${not empty user.avatarUrl ? user.avatarUrl : '/images/default-avatar.png'}"
+            alt="Avatar"
+            className="avatar"
+        />
         <p><strong><fmt:message key="username.placeholder" />:</strong> ${user.username}</p>
         <p><strong><fmt:message key="email.placeholder" />:</strong> ${user.email}</p>
     </div>
